@@ -13,8 +13,6 @@ pub enum DomainNameError {
     LabelLength(usize),
     #[error("Domain name is too big: {DOMAIN_NAME_MAX_LENGTH} <= {0}")]
     DomainNameLength(usize),
-    #[error("Label contains dot")]
-    LabelDot,
 }
 
 #[derive(Debug, Clone, Eq)]
@@ -57,10 +55,6 @@ impl DomainName {
         let domain_name_length = self.0.len() + label_length;
         if DOMAIN_NAME_MAX_LENGTH <= domain_name_length {
             return Err(DomainNameError::DomainNameLength(domain_name_length));
-        }
-
-        if label.contains('.') {
-            return Err(DomainNameError::LabelDot);
         }
 
         if &self.0 == "." {

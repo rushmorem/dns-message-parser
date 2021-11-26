@@ -81,13 +81,6 @@ fn domain_name_max_length() {
 }
 
 #[test]
-fn domain_name_regex() {
-    let mut domain_name = DomainName::default();
-    let result = domain_name.append_label(".");
-    assert!(result.is_err());
-}
-
-#[test]
 fn decode_type_type() {
     let bytes = Bytes::copy_from_slice(&b"\x00\x01"[..]);
     let type_ = Type::decode(bytes).unwrap();
